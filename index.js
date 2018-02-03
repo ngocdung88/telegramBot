@@ -11,7 +11,7 @@ bot.command("mkcap", (msg, reply) => {
         if (err){
             next();
         }else {
-            reply.text('Total Market Cap : ' + data);
+            reply.markdown('*Total Market Cap* : ' + data);
         }
     });
 
