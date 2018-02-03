@@ -6,7 +6,9 @@ function getTotalMarket(callback) {
             if (body.statusCode === 200){
                 let data = JSON.parse(res);
                 let total = data.total_market_cap_usd;
-                callback(null,accounting.formatMoney(total));
+                let time = data.last_updated;
+                console.log(data);
+                callback(null,{total :accounting.format(total),time : time});
             }else {
                callback({});
             }
