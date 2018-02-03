@@ -24,6 +24,7 @@
   "homepage": "https://github.com/ngocdung88/telegramBot#readme",
   "dependencies": {
     "botgram": "^2.0.1",
+    "express": "^4.16.2",
     "request": "^2.83.0"
   }
 }
