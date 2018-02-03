@@ -1,6 +1,7 @@
 const botgram = require("botgram")
 const bot = botgram("463941200:AAGvi6lLKpNcgqAjbpmYQzwBV_kraKY1tx0");
 const request = require('request');
+const cryptoService = require('./utils/cryptoService');
 const accounting = require('./lib/accounting');
 //var socket = require('socket.io-client')('https://streamer.cryptocompare.com/');
 
@@ -23,24 +24,14 @@ bot.command("start", "help", (msg, reply) =>
 
 bot.command("mkcap", (msg, reply) => {
 
-    request('https://api.coinmarketcap.com/v1/global/', (err, body, res) => {
-
-        try {
-            if (body.statusCode === 200){
-                let data = JSON.parse(res);
-                let total = data.total_market_cap_usd;
-
-                reply.text("Total Market Cap : $" + accounting.format(total));
-
-            }else {
-                next();
-            }
-        }catch (e){
+    cryptoService.getTotalMarket((err, data)=>{
+        if (err){
             next();
+        }else {
+            reply.text('Total Market Cap : ' + data);
         }
+    });
 
-
-    })
 });
 
 bot.command((msg, reply) =>
