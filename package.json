@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/ngocdung88/telegramBot/issues"
   },
-  "homepage": "https://github.com/ngocdung88/telegramBot#readme"
+  "homepage": "https://github.com/ngocdung88/telegramBot#readme",
+  "dependencies": {
+    "botgram": "^2.0.1",
+    "request": "^2.83.0"
+  }
 }
