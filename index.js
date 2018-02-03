@@ -1,22 +1,20 @@
-const botgram = require("botgram");
-const config = require('./config');
-const bot = botgram(config.token);
-const cryptoService = require('./utils/cryptoService');
 
-bot.command("start", "help", (msg, reply) =>
-    reply.text("To get total market cap, do: /mkcap"));
+const express = require('express');
+const http = require('http');
 
-bot.command("mkcap", (msg, reply) => {
 
-    cryptoService.getTotalMarket((err, data)=>{
-        if (err){
-            next();
-        }else {
-            reply.markdown('*Total Market Cap* : ' + data);
-        }
+
+// Setup server
+var app = express();
+var server = http.createServer(app);
+require('./routes')(app);
+
+// Start server
+function startServer() {
+    app.angularFullstack = server.listen(process.env.PORT || 3000, function() {
+        console.log('Express server listening on %d, in %s mode', process.env.PORT || 3000);
     });
+}
 
-});
-
-bot.command((msg, reply) =>
-    reply.text("Invalid command."));
+require('./botUtil');
+startServer();
