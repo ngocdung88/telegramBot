@@ -1,0 +1,24 @@
+{
+  "name": "telegrambot",
+  "version": "1.0.0",
+  "description": "server use for telegram bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngocdung88/telegramBot.git"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "cryptocurrency"
+  ],
+  "author": "ngocdung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ngocdung88/telegramBot/issues"
+  },
+  "homepage": "https://github.com/ngocdung88/telegramBot#readme"
+}
