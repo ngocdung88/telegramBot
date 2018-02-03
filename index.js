@@ -20,18 +20,10 @@ const accounting = require('./lib/accounting');
 
 bot.command("start", "help", (msg, reply) =>
     reply.text("To get total market cap, do: /mkcap"));
-    //reply.text("To get price a currency, do: /price btc");
-
-bot.command("alert", (msg, reply) => {
-    var [seconds, text] = msg.args(2);
-    if (!seconds.match(/^\d+$/) || !text) return next();
-
-    setTimeout(() => reply.text(text), Number(seconds) * 1000)
-})
 
 bot.command("mkcap", (msg, reply) => {
 
-    request('https://api.coinmarketcap.com/v1/global/',function (err, body, res) {
+    request('https://api.coinmarketcap.com/v1/global/', (err, body, res) => {
 
         try {
             if (body.statusCode === 200){
@@ -49,7 +41,7 @@ bot.command("mkcap", (msg, reply) => {
 
 
     })
-})
+});
 
 bot.command((msg, reply) =>
     reply.text("Invalid command."))
