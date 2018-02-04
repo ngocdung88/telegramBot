@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+const request = require('request');
+
+request('https://telegram-bot-api.herokuapp.com/');
