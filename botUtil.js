@@ -22,6 +22,37 @@ bot.command("mkcap", (msg, reply , next) => {
     });
 });
 
+bot.command("price", (msg, reply, next) => {
+
+
+    var [data] = msg.args(1);
+
+    var [coin,prize] = data.split('/');
+
+    if (!coin) {
+        reply.text('Wrong format! Please give format like ex: BTC/USD , ETH/BTC, etc..');
+        next();
+    }
+
+    if (!prize){
+        prize = 'USD'
+    }
+
+    cryptoService.getPrize(coin, prize, (err, data) => {
+        if (err) {
+            next();
+        } else {
+            if (_.isString(data)){
+                reply.text(data);
+            } else {
+
+                reply.text("Current "+ prize +" Price: " + _.first(_.values(data)));
+            }
+        }
+    });
+});
+
+
 bot.command('ping', (msg , reply, next) =>{
     try {
         let chat_id = msg.user.id;
