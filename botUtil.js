@@ -16,7 +16,7 @@ bot.command("mkcap", (msg, reply , next) => {
         if (err){
             next();
         }else {
-            reply.markdown('*Updated Time* : '  + moment(data.time*1000).format("HH:mm")+'\n*Total Market Cap* : ' + data.total);
+            reply.markdown('*Updated Time* : '  + moment(data.time*1000).format("HH:mm Z")+'\n*Total Market Cap* : ' + data.total);
         }
     });
 });
