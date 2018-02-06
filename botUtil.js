@@ -8,7 +8,7 @@ let tele = require('./utils/telegram');
 let alert = [];
 
 bot.command("start", "help", (msg, reply) =>
-    reply.text("To get total market cap, do: /mkcap"));
+    reply.markdown("To get total market cap, do: /mkcap\n To get current price a coin, do: /price [coin]"));
 
 bot.command("mkcap", (msg, reply , next) => {
 
@@ -16,7 +16,6 @@ bot.command("mkcap", (msg, reply , next) => {
         if (err){
             next();
         }else {
-            var time = new Date(data.time);
             reply.markdown('*Updated Time* : '  + moment(data.time*1000).format("HH:mm")+'\n*Total Market Cap* : ' + data.total);
         }
     });
@@ -30,8 +29,9 @@ bot.command("price", (msg, reply, next) => {
     var [coin,prize] = data.split('/');
 
     if (!coin) {
-        reply.text('Wrong format! Please give format like ex: BTC/USD , ETH/BTC, etc..');
+        reply.text('Wrong format! Please give format like ex: /price BTC ,/price ETH/BTC, etc..');
         next();
+        return;
     }
 
     if (!prize){
