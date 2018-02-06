@@ -8,7 +8,7 @@ let tele = require('./utils/telegram');
 let alert = [];
 
 bot.command("start", "help", (msg, reply) =>
-    reply.markdown("To get total market cap, do: /mkcap\n To get current price a coin, do: /price [coin]"));
+    reply.markdown("To get total market cap, do: /mkcap \n To get current price a coin, do: /price [coin]"));
 
 bot.command("mkcap", (msg, reply , next) => {
 
