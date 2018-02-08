@@ -17,8 +17,12 @@ bot.command("mkcap", (msg, reply , next) => {
 
     if (coin){
         cryptoService.getMarketCap(coin, (err, data)=>{
-            if (err) reply.text(`can't get ${coin} market cap. Please check coin symbol and try again`);
-            reply.markdown('*Updated Time* : '  + moment(data.last_updated*1000).format("MMM DD h:mm A Z")+`\n*${data.name} Market Cap* : $` + accounting.format(data.market_cap_usd));
+            if (err) {
+                reply.text(`can't get ${coin} market cap. Please check coin symbol and try again`);
+                next();
+                return
+            }
+            data&&reply.markdown('*Updated Time* : '  + moment(data.last_updated*1000).format("MMM DD h:mm A Z")+`\n*${data.name} Market Cap* : $` + accounting.format(data.market_cap_usd));
         });
     }else {
         cryptoService.getTotalMarket((err, data)=>{

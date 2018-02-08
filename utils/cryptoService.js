@@ -60,7 +60,7 @@ function getMarketCap(coinName, callback) {
                 let data = _.first(JSON.parse(res));
                 let total = data.market_cap_usd;
                 let time = data.last_updated;
-                callback(null,data);
+                callback(null, data);
             }else {
                 callback({});
             }
