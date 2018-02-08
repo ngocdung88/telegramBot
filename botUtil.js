@@ -2,6 +2,7 @@ const botgram = require("botgram");
 const config = require('./config');
 const bot = botgram(config.token);
 const moment = require('moment');
+const accounting = require('./lib/accounting');
 const cryptoService = require('./utils/cryptoService');
 const _ = require('lodash');
 let tele = require('./utils/telegram');
@@ -12,13 +13,24 @@ bot.command("start", "help", (msg, reply) =>
 
 bot.command("mkcap", (msg, reply , next) => {
 
-    cryptoService.getTotalMarket((err, data)=>{
-        if (err){
-            next();
-        }else {
-            reply.markdown('*Updated Time* : '  + moment(data.time*1000).format("MMM DD h:mm A Z")+'\n*Total Market Cap* : ' + data.total);
-        }
-    });
+    let [coin] = msg.args(1);
+
+    if (coin){
+        cryptoService.getMarketCap(coin, (err, data)=>{
+            if (err) reply.text(`can't get ${coin} market cap. Please check coin symbol and try again`);
+            reply.markdown('*Updated Time* : '  + moment(data.last_updated*1000).format("MMM DD h:mm A Z")+`\n*${data.name} Market Cap* : $` + accounting.format(data.market_cap_usd));
+        });
+    }else {
+        cryptoService.getTotalMarket((err, data)=>{
+            if (err){
+                next();
+            }else {
+                reply.markdown('*Updated Time* : '  + moment(data.time*1000).format("MMM DD h:mm A Z")+'\n*Total Market Cap* : $' + data.total);
+            }
+        });
+    }
+
+
 });
 
 bot.command("price", (msg, reply, next) => {

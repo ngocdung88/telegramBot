@@ -24,8 +24,9 @@
   "homepage": "https://github.com/ngocdung88/telegramBot#readme",
   "dependencies": {
     "botgram": "^2.0.1",
+    "cryptocurrencies": "^1.2.0",
     "express": "^4.16.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.5",
     "moment": "^2.20.1",
     "request": "^2.83.0"
   }

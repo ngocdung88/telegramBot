@@ -1,6 +1,7 @@
 const request = require('request');
 const accounting = require('../lib/accounting');
 const _ = require('lodash');
+const cryptocurrencies = require('cryptocurrencies');
 function getTotalMarket(callback) {
     request('https://api.coinmarketcap.com/v1/global/', (err, body, res) => {
         try {
@@ -42,7 +43,35 @@ function getPrize(coin , price, callback) {
     })
 }
 
+function getMarketCap(coinName, callback) {
+
+    let id = cryptocurrencies[_.toUpper(coinName)];
+
+    if (!id){
+        callback({});
+        return;
+    }
+
+    id = _.kebabCase(id);
+
+    request('https://api.coinmarketcap.com/v1/ticker/' + id, (err, body, res) => {
+        try {
+            if (body.statusCode === 200){
+                let data = _.first(JSON.parse(res));
+                let total = data.market_cap_usd;
+                let time = data.last_updated;
+                callback(null,data);
+            }else {
+                callback({});
+            }
+        }catch (e){
+            callback(e)
+        }
+    })
+}
+
 module.exports = {
     getTotalMarket : getTotalMarket,
-    getPrize : getPrize
+    getPrize : getPrize,
+    getMarketCap : getMarketCap
 }
